@@ -2,6 +2,8 @@
 
 > A simple React avatar component to display either their avatars or their initials
 
+View [DEMO](https://desduvauchelle.github.io/react-simple-avatar/)
+
 [![NPM](https://img.shields.io/npm/v/react-simple-avatar.svg)](https://www.npmjs.com/package/react-simple-avatar) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
