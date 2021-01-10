@@ -32,6 +32,22 @@ const App = () => {
 			<Avatar name="denis" size={140} style={{ marginLeft: 10 }} />
 			<Avatar name="denis" size={150} style={{ marginLeft: 10 }} />
 		</div>
+		<h2>With tooltip</h2>
+		<br />
+		<div style={{ display: `flex`, flexDirection: `row` }}>
+			<div>
+				<Avatar name="denis" size={100} enableTooltip={true} />
+			</div>
+			<div style={{ marginLeft: 50 }}>
+				<Avatar name="denis" size={100} enableTooltip={true} tooltipDirection="bottom" />
+			</div>
+			<div style={{ marginLeft: 50 }}>
+				<Avatar name="denis" size={100} enableTooltip={true} tooltipDirection="left" />
+			</div>
+			<div style={{ marginLeft: 50 }}>
+				<Avatar name="denis" size={100} enableTooltip={true} tooltipDirection="right" />
+			</div>
+		</div>
 	</div>
 }
 

@@ -37,6 +37,12 @@ const Avatar = ({
 	backgroundColor = `#8e8e8e`,// eslint-disable-line
 	textColor = `#F1F1F1`, // eslint-disable-line
 	enableTooltip = false,
+	tooltipDirection = `top`,
+	tooltipTextColor = `#FFFFFF`,
+	tooltipBackgroundColor = `#000000`,
+	tooltipMargin = 30,
+	tooltipArrowSize = 6,
+	tooltipDelay = 200,
 	style = {}
 }) => {
 	const [loadAvatarHasError, setLoadAvatarHasError] = useState(false)
@@ -46,6 +52,16 @@ const Avatar = ({
 	}, [avatarUrl])
 
 	let styles = { backgroundColor, textColor, size, borderRadius }
+
+	let tooltipAttr = {
+		delay: tooltipDelay,
+		content: name,
+		direction: tooltipDirection,
+		textColor: tooltipTextColor,
+		backgroundColor: tooltipBackgroundColor,
+		margin: tooltipMargin,
+		arrowSize: tooltipArrowSize
+	}
 
 	if (avatarUrl && loadAvatarHasError === false) {
 		const contentImg = <AvatarImg
@@ -57,7 +73,7 @@ const Avatar = ({
 			onError={() => setLoadAvatarHasError(true)} />
 
 		if (enableTooltip) {
-			return <Tooltip>
+			return <Tooltip {...tooltipAttr}>
 				{contentImg}
 			</Tooltip>
 		}
@@ -71,7 +87,7 @@ const Avatar = ({
 		{name ? name[0] : `?`}
 	</AvatarText>
 	if (enableTooltip) {
-		return <Tooltip>
+		return <Tooltip {...tooltipAttr}>
 			{contentText}
 		</Tooltip>
 	}

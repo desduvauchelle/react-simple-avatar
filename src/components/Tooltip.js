@@ -10,11 +10,9 @@ const Wrapper = styled.div`
 const Tip = styled.div`
 	position: absolute;
 	border-radius: 4px;
-	left: 50%;
-	transform: translateX(-50%);
 	padding: 6px;
-	color: ${props => props.textColor};
-	background: var(${props => `${props.backgroundColor}`});
+	color: ${props => props.passedStyles.textColor};
+	background: ${props => props.passedStyles.backgroundColor};
 	font-size: 14px;
 	font-family: sans-serif;
 	line-height: 1;
@@ -23,45 +21,62 @@ const Tip = styled.div`
 
 	&::before {
 		content: " ";
-		left: 50%;
 		border: solid transparent;
 		height: 0;
 		width: 0;
 		position: absolute;
 		pointer-events: none;
-		border-width: var(${props => props.arrowSize});
-		margin-left: calc(var(${props => props.arrowSize}) * -1);
+		border-width: ${props => `${props.passedStyles.arrowSize}px`};
+		margin-left: ${props => `${-1 * props.passedStyles.arrowSize}px`});
 	}
 
-	&.right {
-		left: calc(100% + var(${props => props.margin}));
-		top: 50%;
-		transform: translateX(0) translateY(-50%);
+	&.top {
+		left: 50%;
+		transform: translateX(-50%);
+		top: ${props => `${-1 * props.passedStyles.margin}px`};
 		&::before {
-			left: calc(var(${props => props.arrowSize}) * -1);
-			top: 50%;
-			transform: translateX(0) translateY(-50%);
-			border-right-color: var(${props => props.backgroundColor});
+			left: 50%;
+			transform: translateX(-50%);
+			top: 100%;
+			border-top-color: ${props => props.passedStyles.backgroundColor};
 		}
 	}
 	&.bottom {
-		bottom: calc(var(${props => props.margin}) * -1);
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: calc(var(${props => props.passedStyles.margin}) * -1);
 		&::before {
+			left: 50%;
+			transform: translateX(-50%);
 			bottom: 100%;
-			border-bottom-color: var(${props => props.backgroundColor});
+			border-bottom-color: ${props => props.passedStyles.backgroundColor};
 		}
 	}
-	&.left {
-		left: auto;
-		right: calc(100% + var(${props => props.margin}));
+
+	&.right {
+		left: calc(100% + ${props => props.passedStyles.margin / 4}px);
 		top: 50%;
-		transform: translateX(0) translateY(-50%);
+		transform:  translateY(-50%);
+		text-align: left;
+		&::before {
+			left: ${props => `${-2 * props.passedStyles.arrowSize}px`};
+			top: 50%;
+			transform: translateY(-50%);
+			border-right-color: ${props => props.passedStyles.backgroundColor};
+		}
+	}
+
+	&.left {
+		right: calc(100% + ${props => props.passedStyles.margin / 4}px);
+		text-align: right;
+		top: 50%;
+		transform:  translateY(-50%);
 		&::before {
 			left: auto;
-			right: calc(var(${props => props.arrowSize}) * -2);
+			right: ${props => `${-2 * props.passedStyles.arrowSize}px`};
 			top: 50%;
-			transform: translateX(0) translateY(-50%);
-			border-left-color: var(${props => props.backgroundColor});
+			transform: translateY(-50%);
+			border-left-color: ${props => props.passedStyles.backgroundColor};
 		}
 	}
 `
@@ -90,11 +105,14 @@ const Tooltip = ({
 		setActive(false)
 	}
 
+	const passedStyles = { textColor, backgroundColor, margin, arrowSize }
+
 	return <Wrapper
+		passedStyles={passedStyles}
 		onMouseEnter={showTip}
 		onMouseLeave={hideTip}>
 		{children}
-		{active && <Tip className={`${direction}`}>
+		{active && <Tip passedStyles={passedStyles} className={direction}>
 			{content}
 		</Tip>}
 	</Wrapper>
